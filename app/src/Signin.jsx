@@ -1,4 +1,6 @@
 import React from 'react';
+import {googleSignInPopup} from "./auth/google_signin"
+//Material-UI
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -59,7 +61,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Signin() {
   const classes = useStyles();
-
+  const handleClick =()=>{
+    googleSignInPopup();
+  }
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -73,40 +77,20 @@ export default function Signin() {
             Log in
           </Typography>
           <form className={classes.form} noValidate>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
+            
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
             <Button
-              type="submit"
+              type="button"
               fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
+              onClick={handleClick}
             >
-              Sign In
+              Sign In with Google
             </Button>
             <Grid container>
               <Grid item xs>
