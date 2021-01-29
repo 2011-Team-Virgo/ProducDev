@@ -1,5 +1,5 @@
 import React from 'react';
-import {googleSignInPopup} from "./auth/google_signin"
+import {googleSignInPopup,googleProvider} from "./auth/google_signin"
 //Material-UI
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -62,7 +62,8 @@ const useStyles = makeStyles((theme) => ({
 export default function Signin() {
   const classes = useStyles();
   const handleClick =()=>{
-    googleSignInPopup();
+    const provider = googleProvider()
+    googleSignInPopup(provider);
   }
   return (
     <Grid container component="main" className={classes.root}>

@@ -6,7 +6,7 @@ import "firebase/auth";
 
 // Docs: https://source.corp.google.com/piper///depot/google3/third_party/devsite/firebase/en/docs/auth/web/google-signin.md
 
-function googleProvider() {
+export function googleProvider() {
   // [START auth_google_provider_create]
   var provider = new firebase.auth.GoogleAuthProvider();
   // [END auth_google_provider_create]
@@ -19,6 +19,7 @@ function googleProvider() {
   provider.setCustomParameters({
     'login_hint': 'user@example.com'
   });
+  return provider
   // [END auth_google_provider_params]
 }
 

@@ -1,4 +1,4 @@
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyAe9TREuTK9UgMRKcibsnRPZnH7VRIQqZE",
   authDomain: "producdev-1277b.firebaseapp.com",
   databaseURL: "https://producdev-1277b-default-rtdb.firebaseio.com",
