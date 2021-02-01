@@ -5,6 +5,10 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import history from './history';
 import { Router } from 'react-router-dom';
+import firebase from 'firebase/app';
+import firebaseConfig from './firebase/firebase_config';
+import 'firebase/auth';
+import 'firebase/database';
 
 ReactDOM.render(
   <Router history={history}>
@@ -17,3 +21,4 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+firebase.initializeApp(firebaseConfig);
