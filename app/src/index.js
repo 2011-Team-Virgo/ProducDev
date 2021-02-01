@@ -6,10 +6,17 @@ import reportWebVitals from './reportWebVitals';
 import history from './history';
 import { Router } from 'react-router-dom';
 
+//store
+import store from './store'
+import {Provider} from 'react-redux'
+
 ReactDOM.render(
+  <Provider store={store}>
   <Router history={history}>
-    <App />
-  </Router>,
+      <App />
+    </Router>
+  </Provider>
+ ,
   document.getElementById('root')
 );
 
