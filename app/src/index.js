@@ -5,8 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import history from './history';
 import { Router } from 'react-router-dom';
-import firebase from 'firebase/app';
-import firebaseConfig from './firebase/firebase_config';
+import firebase from 'firebase/';
+import {firebaseConfig} from './firebase/firebase_config';
 import 'firebase/auth';
 import 'firebase/database';
 
