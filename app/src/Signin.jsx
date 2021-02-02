@@ -1,46 +1,46 @@
 import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
+import {setUserData} from './store/user'
+import {useDispatch} from 'react-redux'
+//Material-UI
+import {
+  FormControlLabel,
+  Avatar,
+  Button,
+  CssBaseline,
+  Link,
+  Paper,
+  Box,
+  Grid,
+  Typography,
+  Checkbox,
+} from '@material-ui/core'
+
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import GitHubIcon from '@material-ui/icons/GitHub';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles } from '@material-ui/core/styles';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 
-function handleGoogle() {
+function handleGoogle(dispatch) {
   const provider = new firebase.auth.GoogleAuthProvider();
   firebase
     .auth()
     .signInWithPopup(provider)
     .then((result) => {
       /** @type {firebase.auth.OAuthCredential} */
-      var credential = result.credential;
 
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      var token = credential.accessToken;
       // The signed-in user info.
       var user = result.user;
       // ...
       writeUserData(user.uid, user.displayName, user.email);
+      
+      dispatch(setUserData(user))
+      
     })
     .catch((error) => {
-      // Handle Errors here.
-      var errorCode = error.code;
       var errorMessage = error.message;
-      // The email of the user's account used.
-      var email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
-      var credential = error.credential;
+      console.log(errorMessage)
       // ...
     });
 }
@@ -108,7 +108,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Signin() {
   const classes = useStyles();
-
+  const dispatch = useDispatch()
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -123,7 +123,7 @@ export default function Signin() {
             fullWidth
             className={classes.google}
             variant="contained"
-            onClick={handleGoogle}
+            onClick={()=>{handleGoogle(dispatch)}}
           >
             Continue with Google
           </Button>
