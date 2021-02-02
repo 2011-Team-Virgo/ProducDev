@@ -23,4 +23,8 @@ yarn-debug.log*
 yarn-error.log*
 
 .eslintcache
+<<<<<<< HEAD
 ./firebase/firebase_config.js
+=======
+src/firebase/firebase_config.js
+>>>>>>> 6aaaa63808b462f76d0f7282f6404c6d0c66128f

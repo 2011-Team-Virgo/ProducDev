@@ -10,8 +10,50 @@ import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import GitHubIcon from '@material-ui/icons/GitHub';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/database';
+
+function handleGoogle() {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  firebase
+    .auth()
+    .signInWithPopup(provider)
+    .then((result) => {
+      /** @type {firebase.auth.OAuthCredential} */
+      var credential = result.credential;
+
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      var token = credential.accessToken;
+      // The signed-in user info.
+      var user = result.user;
+      // ...
+      writeUserData(user.uid, user.displayName, user.email);
+    })
+    .catch((error) => {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // The email of the user's account used.
+      var email = error.email;
+      // The firebase.auth.AuthCredential type that was used.
+      var credential = error.credential;
+      // ...
+    });
+}
+
+function writeUserData(userId, name, email) {
+  firebase
+    .database()
+    .ref('users/' + userId)
+    .set({
+      name: name,
+      email: email,
+    });
+}
 
 function Copyright() {
   return (
@@ -48,12 +90,19 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     backgroundColor: '#A16E83',
   },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
+  github: {
+    backgroundColor: '#000000',
+    color: '#F5f5f5',
+    marginTop: theme.spacing(0.8),
+    marginBottom: theme.spacing(2.5),
   },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
+  google: {
+    backgroundColor: '#4285F4',
+    color: '#f5f5f5',
+    marginTop: theme.spacing(2.5),
+  },
+  ghicon: {
+    marginRight: theme.spacing(1.5),
   },
 }));
 
@@ -72,6 +121,7 @@ export default function Signin() {
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
+<<<<<<< HEAD
           <Typography component="h1" variant="h5">
             Log in
           </Typography>
@@ -92,11 +142,45 @@ export default function Signin() {
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
+=======
+          <Button
+            type="submit"
+            fullWidth
+            className={classes.google}
+            variant="contained"
+            onClick={handleGoogle}
+          >
+            Continue with Google
+          </Button>
+          <Button
+            type="submit"
+            fullWidth
+            className={classes.github}
+            variant="contained"
+          >
+            <GitHubIcon className={classes.ghicon} />
+            Continue with Github
+          </Button>
+          <FormControlLabel
+            control={<Checkbox value="remember" color="primary" />}
+            label="Remember me"
+          />
+          <Grid container>
+            <Grid item xs>
+              <Link href="#" variant="body2">
+                Forgot password?
+              </Link>
             </Grid>
-            <Box mt={5}>
-              <Copyright />
-            </Box>
-          </form>
+            <Grid item>
+              <Link href="#" variant="body2">
+                {"Don't have an account? Sign Up"}
+              </Link>
+>>>>>>> 6aaaa63808b462f76d0f7282f6404c6d0c66128f
+            </Grid>
+          </Grid>
+          <Box mt={5}>
+            <Copyright />
+          </Box>
         </div>
       </Grid>
     </Grid>
