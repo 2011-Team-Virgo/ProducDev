@@ -1,0 +1,20 @@
+{
+  "users" : {
+    "HYgtJZx9TgPPUshYOUiQJlFf7E03" : {
+      "Projects" : {
+        "ProducDev" : {
+          "keyStrokes" : {
+            "02-02-2021-3:40:20" : 230,
+            "02-02-2021-4:50:23" : 322
+          },
+          "minutes" : {
+            "02-02-2021-3:30" : 230,
+            "02-02-2021-5:40" : 400
+          }
+        }
+      },
+      "email" : "calvinwolfelowe@gmail.com",
+      "name" : "Calvin Lowe"
+    }
+  }
+}

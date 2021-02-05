@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {setUserData} from './store/user'
 import {useDispatch} from 'react-redux'
 //Material-UI
@@ -32,7 +32,7 @@ function handleGoogle(dispatch) {
 
       // The signed-in user info.
       var user = result.user;
-      // ...
+     
       writeUserData(user.uid, user.displayName, user.email);
       
       dispatch(setUserData(user))
