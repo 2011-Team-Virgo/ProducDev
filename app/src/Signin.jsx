@@ -47,6 +47,7 @@ function handleGoogle() {
 
 function handleGitHub() {
   const provider = new firebase.auth.GithubAuthProvider();
+
   firebase
     .auth()
     .signInWithRedirect(provider)
@@ -62,14 +63,7 @@ function handleGitHub() {
       writeUserData(user.uid, user.displayName, user.email);
     })
     .catch((error) => {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // The email of the user's account used.
-      var email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
-      var credential = error.credential;
-      // ...
+      console.log(error);
     });
 }
 
