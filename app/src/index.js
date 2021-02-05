@@ -1,20 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import history from './history';
-import { Router } from 'react-router-dom';
-import firebase from 'firebase/app';
-import firebaseConfig from './firebase/firebase_config';
-import 'firebase/auth';
-import 'firebase/database';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import history from "./history";
+import { Router } from "react-router-dom";
+import firebase from "firebase/app";
+import firebaseConfig from "./firebase/firebase_config";
+import "firebase/auth";
+import "firebase/database";
 
 ReactDOM.render(
   <Router history={history}>
     <App />
   </Router>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
