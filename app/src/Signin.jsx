@@ -45,65 +45,87 @@ function handleGoogle(dispatch) {
     });
 }
 
+function handleGitHub() {
+  const provider = new firebase.auth.GithubAuthProvider();
+
+  firebase
+    .auth()
+    .signInWithRedirect(provider)
+    .then((result) => {
+      /** @type {firebase.auth.OAuthCredential} */
+      var credential = result.credential;
+
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      // var token = credential.accessToken;
+      // The signed-in user info.
+      var user = result.user;
+      // ...
+      writeUserData(user.uid, user.displayName, user.email);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
 function writeUserData(userId, name, email) {
   firebase
     .database()
-    .ref('users/' + userId)
+    .ref("users/" + userId)
     .set({
       name: name,
-      email: email,
+      email: email
     });
 }
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
+      {"Copyright © "}
       <Link color="inherit" href="https://material-ui.com/">
         ProducDev
-      </Link>{' '}
+      </Link>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '100vh',
+    height: "100vh"
   },
   image: {
     backgroundImage:
-      'url(https://images.unsplash.com/photo-1489389944381-3471b5b30f04?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80)',
-    backgroundRepeat: 'no-repeat',
-    backgroundColor: '#19181A',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
+      "url(https://images.unsplash.com/photo-1489389944381-3471b5b30f04?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80)",
+    backgroundRepeat: "no-repeat",
+    backgroundColor: "#19181A",
+    backgroundSize: "cover",
+    backgroundPosition: "center"
   },
   paper: {
     margin: theme.spacing(8, 4),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center"
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: '#A16E83',
+    backgroundColor: "#A16E83"
   },
   github: {
-    backgroundColor: '#000000',
-    color: '#F5f5f5',
+    backgroundColor: "#000000",
+    color: "#F5f5f5",
     marginTop: theme.spacing(0.8),
-    marginBottom: theme.spacing(2.5),
+    marginBottom: theme.spacing(2.5)
   },
   google: {
-    backgroundColor: '#4285F4',
-    color: '#f5f5f5',
-    marginTop: theme.spacing(2.5),
+    backgroundColor: "#4285F4",
+    color: "#f5f5f5",
+    marginTop: theme.spacing(2.5)
   },
   ghicon: {
-    marginRight: theme.spacing(1.5),
-  },
+    marginRight: theme.spacing(1.5)
+  }
 }));
 
 export default function Signin() {
@@ -132,7 +154,7 @@ export default function Signin() {
             fullWidth
             className={classes.github}
             variant="contained"
-          >
+            onClick={handleGitHub}>
             <GitHubIcon className={classes.ghicon} />
             Continue with Github
           </Button>
