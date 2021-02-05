@@ -1,9 +1,15 @@
-import React from 'react';
-import { withRouter } from 'react-router-dom';
+import React from "react";
+import { withRouter } from "react-router-dom";
+import firebase from "firebase/app";
 
 class Analytics extends React.Component {
   render() {
-    return <h1>Hi from Analytics</h1>;
+    const { email, name } = firebase.auth().currentUser;
+    return (
+      <div>
+        <div>{name}</div>
+      </div>
+    );
   }
 }
 

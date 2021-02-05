@@ -50,24 +50,36 @@ function handleGitHub() {
 
   firebase
     .auth()
-    .signInWithRedirect(provider)
+    .signInWithPopup(provider)
     .then((result) => {
+      console.log(result.user.getUser());
       /** @type {firebase.auth.OAuthCredential} */
       var credential = result.credential;
 
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      // var token = credential.accessToken;
+      // This gives you a GitHub Access Token. You can use it to access the GitHub API.
+      var token = credential.accessToken;
+
       // The signed-in user info.
       var user = result.user;
       // ...
-      writeUserData(user.uid, user.displayName, user.email);
     })
     .catch((error) => {
-      console.log(error);
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // The email of the user's account used.
+      var email = error.email;
+      // The firebase.auth.AuthCredential type that was used.
+      var credential = error.credential;
+      // ...
     });
+  firebase.auth().onAuthStateChanged((user) => {
+    console.log(user);
+  });
 }
 
 function writeUserData(userId, name, email) {
+  console.log(userId);
   firebase
     .database()
     .ref("users/" + userId)
