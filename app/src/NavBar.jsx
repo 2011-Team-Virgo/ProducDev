@@ -61,7 +61,7 @@ const NavBar = (props) => {
             </Link>
           </Typography>
           {
-            user.uid ? 
+            user.id ? 
             <div>
               <IconButton
                 edge="start"

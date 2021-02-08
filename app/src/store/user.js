@@ -18,15 +18,19 @@ const setUser = (user)=>
 const removeUser=()=>
 (
     {
-        type:REMOVE_USER
+        type:REMOVE_USER,
+        user:{}
     }
 )
 
 export const setUserData= (user)=>{
     return async(dispatch)=>{
         try{
-            const {displayName,email,photoURL,uid} = user
-            dispatch(setUser({displayName,email,photoURL,uid }))
+            console.log(user)
+            const id = Number(user.providerData[0].uid)
+            const {displayName,email,photoURL} = user
+            console.log(id)
+            dispatch(setUser({displayName,email,photoURL,id}))
         }catch(err){
             console.log(err)
         }
@@ -36,7 +40,8 @@ export const removeUserData=()=>{
     console.log("remove")
     return async(dispatch)=>{
         try{
-            dispatch(removeUser)
+            console.log("here")
+            dispatch(removeUser())
         }catch(err){
             console.log(err)
         }
@@ -50,7 +55,7 @@ export default function workoutReducer(state = initialState, action){
         case SET_USER:
             return action.user
         case REMOVE_USER:
-            return {}
+            return action.user
         default:
             return state
     }

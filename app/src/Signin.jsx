@@ -45,12 +45,12 @@ function handleGoogle(dispatch) {
     });
 }
 
-function handleGitHub() {
+function handleGitHub(dispatch) {
   const provider = new firebase.auth.GithubAuthProvider();
-
+  console.log("provider: ", provider)
   firebase
     .auth()
-    .signInWithRedirect(provider)
+    .signInWithPopup(provider)
     .then((result) => {
       /** @type {firebase.auth.OAuthCredential} */
       var credential = result.credential;
@@ -59,12 +59,17 @@ function handleGitHub() {
       // var token = credential.accessToken;
       // The signed-in user info.
       var user = result.user;
+
       // ...
       writeUserData(user.uid, user.displayName, user.email);
+
+      //set to store
+      dispatch(setUserData(user))
     })
     .catch((error) => {
       console.log(error);
     });
+    
 }
 
 function writeUserData(userId, name, email) {
@@ -143,18 +148,9 @@ export default function Signin() {
           <Button
             type="submit"
             fullWidth
-            className={classes.google}
-            variant="contained"
-            onClick={()=>{handleGoogle(dispatch)}}
-          >
-            Continue with Google
-          </Button>
-          <Button
-            type="submit"
-            fullWidth
             className={classes.github}
             variant="contained"
-            onClick={handleGitHub}>
+            onClick={()=>{handleGitHub(dispatch)}}>
             <GitHubIcon className={classes.ghicon} />
             Continue with Github
           </Button>

@@ -8,7 +8,7 @@ const Analytics = () =>{
 
   const [data,setData] = useState({})
   useEffect(()=>{
-    var userId = firebase.auth().currentUser.uid;
+    var userId = firebase.auth().currentUser.id;
     firebase
     .database()
     .ref('users/' + userId)

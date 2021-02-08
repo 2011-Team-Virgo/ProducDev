@@ -9,9 +9,9 @@ export default function Account(props) {
   function signOut() {
     // [START auth_sign_out]
     firebase.auth().signOut().then(() => {
-      console.log(dispatch)
-      history.push("/");
+
       dispatch(removeUserData())
+      history.push("/");
     }).catch((error) => {
       console.log(error)
     });
