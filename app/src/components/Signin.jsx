@@ -1,6 +1,6 @@
-import React from 'react';
-import {setUserData} from './store/user'
-import {useDispatch} from 'react-redux'
+import React from "react";
+import { setUserData } from "../store/user";
+import { useDispatch } from "react-redux";
 //Material-UI
 import {
   FormControlLabel,
@@ -12,15 +12,15 @@ import {
   Box,
   Grid,
   Typography,
-  Checkbox,
-} from '@material-ui/core'
+  Checkbox
+} from "@material-ui/core";
 
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import GitHubIcon from '@material-ui/icons/GitHub';
-import {makeStyles } from '@material-ui/core/styles';
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/database';
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import GitHubIcon from "@material-ui/icons/GitHub";
+import { makeStyles } from "@material-ui/core/styles";
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/database";
 
 function handleGoogle(dispatch) {
   const provider = new firebase.auth.GoogleAuthProvider();
@@ -34,81 +34,111 @@ function handleGoogle(dispatch) {
       var user = result.user;
       // ...
       writeUserData(user.uid, user.displayName, user.email);
-      
-      dispatch(setUserData(user))
-      
+
+      dispatch(setUserData(user));
     })
     .catch((error) => {
       var errorMessage = error.message;
-      console.log(errorMessage)
+      console.log(errorMessage);
+      // ...
+    });
+}
+
+function handleGitHub() {
+  const provider = new firebase.auth.GithubAuthProvider();
+
+  firebase
+    .auth()
+    .signInWithPopup(provider)
+    .then((result) => {
+      /** @type {firebase.auth.OAuthCredential} */
+      var credential = result.credential;
+
+      // This gives you a GitHub Access Token. You can use it to access the GitHub API.
+      var token = credential.accessToken;
+
+      // The signed-in user info.
+      var user = result.user;
+      // ...
+      console.log(user);
+    })
+    .catch((error) => {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // The email of the user's account used.
+      var email = error.email;
+      // The firebase.auth.AuthCredential type that was used.
+      var credential = error.credential;
       // ...
     });
 }
 
 function writeUserData(userId, name, email) {
+  console.log(userId);
   firebase
     .database()
-    .ref('users/' + userId)
+    .ref("users/" + userId)
     .set({
       name: name,
-      email: email,
+      email: email
     });
 }
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
+      {"Copyright © "}
       <Link color="inherit" href="https://material-ui.com/">
         ProducDev
-      </Link>{' '}
+      </Link>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '100vh',
+    height: "100vh"
   },
   image: {
     backgroundImage:
-      'url(https://images.unsplash.com/photo-1489389944381-3471b5b30f04?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80)',
-    backgroundRepeat: 'no-repeat',
-    backgroundColor: '#19181A',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
+      "url(https://images.unsplash.com/photo-1489389944381-3471b5b30f04?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80)",
+    backgroundRepeat: "no-repeat",
+    backgroundColor: "#19181A",
+    backgroundSize: "cover",
+    backgroundPosition: "center"
   },
   paper: {
     margin: theme.spacing(8, 4),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center"
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: '#A16E83',
+    backgroundColor: "#A16E83"
   },
   github: {
-    backgroundColor: '#000000',
-    color: '#F5f5f5',
+    backgroundColor: "#000000",
+    color: "#F5f5f5",
     marginTop: theme.spacing(0.8),
-    marginBottom: theme.spacing(2.5),
+    marginBottom: theme.spacing(2.5)
   },
   google: {
-    backgroundColor: '#4285F4',
-    color: '#f5f5f5',
-    marginTop: theme.spacing(2.5),
+    backgroundColor: "#4285F4",
+    color: "#f5f5f5",
+    marginTop: theme.spacing(2.5)
   },
   ghicon: {
-    marginRight: theme.spacing(1.5),
-  },
+    marginRight: theme.spacing(1.5)
+  }
 }));
 
 export default function Signin() {
   const classes = useStyles();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -123,8 +153,7 @@ export default function Signin() {
             fullWidth
             className={classes.google}
             variant="contained"
-            onClick={()=>{handleGoogle(dispatch)}}
-          >
+            onClick={handleGoogle}>
             Continue with Google
           </Button>
           <Button
@@ -132,7 +161,7 @@ export default function Signin() {
             fullWidth
             className={classes.github}
             variant="contained"
-          >
+            onClick={handleGitHub}>
             <GitHubIcon className={classes.ghicon} />
             Continue with Github
           </Button>

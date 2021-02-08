@@ -1,12 +1,12 @@
-import './App.css';
-import React from 'react';
-import Home from './Home';
-import NavBar from './NavBar';
-import Analytics from './Analytics';
-import Account from './Account';
-import Signin from './Signin';
-import { Route, Switch } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
+import "./style/App.css";
+import React from "react";
+import Home from "./style/Home";
+import NavBar from "./components/NavBar";
+import Analytics from "./components/Analytics";
+import Account from "./components/Account";
+import Signin from "./components/Signin";
+import { Route, Switch } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({});
 
