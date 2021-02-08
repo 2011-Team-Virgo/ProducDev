@@ -52,7 +52,6 @@ function handleGitHub() {
     .auth()
     .signInWithPopup(provider)
     .then((result) => {
-      console.log(result.user.getUser());
       /** @type {firebase.auth.OAuthCredential} */
       var credential = result.credential;
 
@@ -62,6 +61,7 @@ function handleGitHub() {
       // The signed-in user info.
       var user = result.user;
       // ...
+      console.log(user);
     })
     .catch((error) => {
       // Handle Errors here.
@@ -73,9 +73,6 @@ function handleGitHub() {
       var credential = error.credential;
       // ...
     });
-  firebase.auth().onAuthStateChanged((user) => {
-    console.log(user);
-  });
 }
 
 function writeUserData(userId, name, email) {

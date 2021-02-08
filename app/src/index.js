@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
+import "./style/index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import history from "./history";
@@ -10,15 +10,15 @@ import firebaseConfig from "./firebase/firebase_config";
 import "firebase/auth";
 import "firebase/database";
 
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
+firebase.initializeApp(firebaseConfig);
+
 ReactDOM.render(
   <Router history={history}>
     <App />
   </Router>,
   document.getElementById("root")
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
-firebase.initializeApp(firebaseConfig);
