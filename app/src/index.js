@@ -9,6 +9,8 @@ import firebase from "firebase/app";
 import firebaseConfig from "./firebase/firebase_config";
 import "firebase/auth";
 import "firebase/database";
+import { Provider } from "react-redux";
+import store from "./store/index";
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
@@ -17,8 +19,10 @@ reportWebVitals();
 firebase.initializeApp(firebaseConfig);
 
 ReactDOM.render(
-  <Router history={history}>
-    <App />
-  </Router>,
+  <Provider store={store}>
+    <Router history={history}>
+      <App />
+    </Router>
+  </Provider>,
   document.getElementById("root")
 );
