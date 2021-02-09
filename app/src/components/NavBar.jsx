@@ -60,7 +60,8 @@ const NavBar = (props) => {
               ProducDev
             </Link>
           </Typography>
-          {user.uid ? (
+          {
+            user.id ? 
             <div>
               <IconButton
                 edge="start"
@@ -83,7 +84,7 @@ const NavBar = (props) => {
                 />
               </IconButton>
             </div>
-          ) : (
+           : (
             <Link to="/signin" className={classes.link}>
               Sign in
             </Link>

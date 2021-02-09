@@ -20,9 +20,10 @@ firebase.initializeApp(firebaseConfig);
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={history}>
+  <Router history={history}>
       <App />
     </Router>
-  </Provider>,
-  document.getElementById("root")
+  </Provider>
+ ,
+  document.getElementById('root')
 );
