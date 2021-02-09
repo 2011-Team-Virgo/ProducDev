@@ -5,7 +5,7 @@ import NavBar from "./components/NavBar";
 import Analytics from "./components/Analytics";
 import Account from "./components/Account";
 import Signin from "./components/Signin";
-import { Route, Switch, Navigate } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import DashboardView from "./DashboardView";
 
