@@ -1,11 +1,16 @@
-import React from "react";
-import { withRouter } from "react-router-dom";
-import firebase from "firebase";
+import React, { useState, useEffect } from 'react';
+import {useSelector} from 'react-redux'
+import { withRouter } from 'react-router-dom';
+import firebase from 'firebase/app';
 
-class Analytics extends React.Component {
-  render() {
-    return <div>Hi from account</div>;
-  }
+const Analytics = () =>{
+  const user = useSelector(state=>state.user)
+  console.log(user)
+
+return(
+  <h1>Hi {user.displayName || user.email}</h1>
+  
+) 
 }
 
-export default withRouter(Analytics);
+export default Analytics;

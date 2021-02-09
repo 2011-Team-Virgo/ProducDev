@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import {setUserData} from './store/user'
+import React from 'react';
+import {setUserData} from '../store/user'
 import {useDispatch} from 'react-redux'
 //Material-UI
 import {
@@ -21,28 +21,6 @@ import {makeStyles } from '@material-ui/core/styles';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
-
-// function handleGoogle(dispatch) {
-//   const provider = new firebase.auth.GoogleAuthProvider();
-//   firebase
-//     .auth()
-//     .signInWithPopup(provider)
-//     .then((result) => {
-//       /** @type {firebase.auth.OAuthCredential} */
-
-//       // The signed-in user info.
-//       var user = result.user;
-//       // ...
-//       writeUserData(user.uid, user.displayName, user.email);
-
-//       dispatch(setUserData(user));
-//     })
-//     .catch((error) => {
-//       var errorMessage = error.message;
-//       console.log(errorMessage);
-//       // ...
-//     });
-// }
 
 function handleGitHub(dispatch) {
   const provider = new firebase.auth.GithubAuthProvider();

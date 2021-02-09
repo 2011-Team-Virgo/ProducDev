@@ -84,7 +84,7 @@ const NavBar = (props) => {
                 />
               </IconButton>
             </div>
-          ) : (
+           : (
             <Link to="/signin" className={classes.link}>
               Sign in
             </Link>
