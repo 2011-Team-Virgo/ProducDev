@@ -7,7 +7,7 @@ import Account from "./components/Account";
 import Signin from "./components/Signin";
 import { Route, Switch } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import DashboardView from "./DashboardView";
+
 
 const useStyles = makeStyles({});
 
@@ -22,7 +22,7 @@ function App() {
           exact
           path="/analytics"
           render={(props) => <Analytics {...props} />}
-          children={<DashboardView />}
+          
         />
         <Route
           exact

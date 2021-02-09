@@ -41,7 +41,8 @@ const NavBar = (props) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.userState.user) || {};
+
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };

@@ -41,15 +41,15 @@ export const setUserData= (user)=>{
         try{
             console.log(user)
             const id = Number(user.providerData[0].uid)
-            const {displayName,email,photoURL} = user
+            const {displayName,email,photoURL} = user;
             console.log("user:", user)
             dispatch(setUser({displayName,email,photoURL,id}))
         }catch(err){
             console.log(err)
         }
     }
-  };
 };
+
 export const removeUserData = () => {
   console.log("remove");
   return async (dispatch) => {
@@ -67,11 +67,11 @@ export default function userReducer(state = initialState, action) {
   console.log(action);
   switch (action.type) {
     case SET_USER:
-      return action.user;
+      return {...state,user:action.user};
     case REMOVE_USER:
       return action.user;
     case FETCH_USER_DATA:
-      return action.userData;
+      return {...state, userData: action.userData}
     default:
       return state;
   }
