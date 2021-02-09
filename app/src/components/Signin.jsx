@@ -12,7 +12,7 @@ import {
   Box,
   Grid,
   Typography,
-  Checkbox
+  Checkbox,
 } from "@material-ui/core";
 
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
@@ -21,28 +21,29 @@ import { makeStyles } from "@material-ui/core/styles";
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
+import axios from "axios";
 
-function handleGoogle(dispatch) {
-  const provider = new firebase.auth.GoogleAuthProvider();
-  firebase
-    .auth()
-    .signInWithPopup(provider)
-    .then((result) => {
-      /** @type {firebase.auth.OAuthCredential} */
+// function handleGoogle(dispatch) {
+//   const provider = new firebase.auth.GoogleAuthProvider();
+//   firebase
+//     .auth()
+//     .signInWithPopup(provider)
+//     .then((result) => {
+//       /** @type {firebase.auth.OAuthCredential} */
 
-      // The signed-in user info.
-      var user = result.user;
-      // ...
-      writeUserData(user.uid, user.displayName, user.email);
+//       // The signed-in user info.
+//       var user = result.user;
+//       // ...
+//       writeUserData(user.uid, user.displayName, user.email);
 
-      dispatch(setUserData(user));
-    })
-    .catch((error) => {
-      var errorMessage = error.message;
-      console.log(errorMessage);
-      // ...
-    });
-}
+//       dispatch(setUserData(user));
+//     })
+//     .catch((error) => {
+//       var errorMessage = error.message;
+//       console.log(errorMessage);
+//       // ...
+//     });
+// }
 
 function handleGitHub() {
   const provider = new firebase.auth.GithubAuthProvider();
@@ -52,38 +53,32 @@ function handleGitHub() {
     .signInWithPopup(provider)
     .then((result) => {
       /** @type {firebase.auth.OAuthCredential} */
-      var credential = result.credential;
-
-      // This gives you a GitHub Access Token. You can use it to access the GitHub API.
-      var token = credential.accessToken;
-
-      // The signed-in user info.
       var user = result.user;
-      // ...
       console.log(user);
+
+      const upload = {
+        id: parseInt(user.providerData[0].uid),
+        data: { name: user.displayName || user.email, email: user.email },
+      };
+      // ...
+      firebaseUpload(upload);
     })
     .catch((error) => {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // The email of the user's account used.
-      var email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
-      var credential = error.credential;
-      // ...
+      console.error(error.message);
     });
 }
 
-function writeUserData(userId, name, email) {
-  console.log(userId);
-  firebase
-    .database()
-    .ref("users/" + userId)
-    .set({
-      name: name,
-      email: email
-    });
-}
+export const firebaseUpload = async (obj) => {
+  const { id, data } = obj;
+  try {
+    await axios.patch(
+      `https://producdev-1277b-default-rtdb.firebaseio.com/users/${id}/userData.json`,
+      data
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 function Copyright() {
   return (
@@ -100,7 +95,7 @@ function Copyright() {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: "100vh"
+    height: "100vh",
   },
   image: {
     backgroundImage:
@@ -108,32 +103,32 @@ const useStyles = makeStyles((theme) => ({
     backgroundRepeat: "no-repeat",
     backgroundColor: "#19181A",
     backgroundSize: "cover",
-    backgroundPosition: "center"
+    backgroundPosition: "center",
   },
   paper: {
     margin: theme.spacing(8, 4),
     display: "flex",
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: "#A16E83"
+    backgroundColor: "#A16E83",
   },
   github: {
     backgroundColor: "#000000",
     color: "#F5f5f5",
     marginTop: theme.spacing(0.8),
-    marginBottom: theme.spacing(2.5)
+    marginBottom: theme.spacing(2.5),
   },
   google: {
     backgroundColor: "#4285F4",
     color: "#f5f5f5",
-    marginTop: theme.spacing(2.5)
+    marginTop: theme.spacing(2.5),
   },
   ghicon: {
-    marginRight: theme.spacing(1.5)
-  }
+    marginRight: theme.spacing(1.5),
+  },
 }));
 
 export default function Signin() {
@@ -151,17 +146,10 @@ export default function Signin() {
           <Button
             type="submit"
             fullWidth
-            className={classes.google}
-            variant="contained"
-            onClick={handleGoogle}>
-            Continue with Google
-          </Button>
-          <Button
-            type="submit"
-            fullWidth
             className={classes.github}
             variant="contained"
-            onClick={handleGitHub}>
+            onClick={handleGitHub}
+          >
             <GitHubIcon className={classes.ghicon} />
             Continue with Github
           </Button>
