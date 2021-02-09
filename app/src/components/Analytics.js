@@ -30,9 +30,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DashboardLayout = () => {
+const Analytics = () => {
   const classes = useStyles();
-
   return (
     <div className={classes.root}>
       <div className={classes.wrapper}>
@@ -44,4 +43,4 @@ const DashboardLayout = () => {
   );
 };
 
-export default DashboardLayout;
+export default Analytics;

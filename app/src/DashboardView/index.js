@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container, Grid, makeStyles } from "@material-ui/core";
 import Page from "../components/Page";
 import Data from "./Data";
 import ActivityByProject from "./ActivityByProject";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchUserData } from "../store/user";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,7 +17,13 @@ const useStyles = makeStyles((theme) => ({
 
 const Dashboard = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state);
+  console.log("data from analytics page ", data);
 
+  useEffect(() => {
+    dispatch(fetchUserData());
+  }, [dispatch]);
   return (
     <Page className={classes.root} title="Dashboard">
       <Container maxWidth={false}>
