@@ -22,28 +22,27 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 
-function handleGoogle(dispatch) {
-  const provider = new firebase.auth.GoogleAuthProvider();
-  firebase
-    .auth()
-    .signInWithPopup(provider)
-    .then((result) => {
-      /** @type {firebase.auth.OAuthCredential} */
+// function handleGoogle(dispatch) {
+//   const provider = new firebase.auth.GoogleAuthProvider();
+//   firebase
+//     .auth()
+//     .signInWithPopup(provider)
+//     .then((result) => {
+//       /** @type {firebase.auth.OAuthCredential} */
 
-      // The signed-in user info.
-      var user = result.user;
-     
-      writeUserData(user.uid, user.displayName, user.email);
-      
-      dispatch(setUserData(user))
-      
-    })
-    .catch((error) => {
-      var errorMessage = error.message;
-      console.log(errorMessage)
-      // ...
-    });
-}
+//       // The signed-in user info.
+//       var user = result.user;
+//       // ...
+//       writeUserData(user.uid, user.displayName, user.email);
+
+//       dispatch(setUserData(user));
+//     })
+//     .catch((error) => {
+//       var errorMessage = error.message;
+//       console.log(errorMessage);
+//       // ...
+//     });
+// }
 
 function handleGitHub(dispatch) {
   const provider = new firebase.auth.GithubAuthProvider();
@@ -53,43 +52,34 @@ function handleGitHub(dispatch) {
     .signInWithPopup(provider)
     .then((result) => {
       /** @type {firebase.auth.OAuthCredential} */
-      let credential = result.credential;
+      var user = result.user;
+      console.log(user);
 
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      // var token = credential.accessToken;
-      // The signed-in user info.
-      let user = result.user;
+      const upload = {
+        id: parseInt(user.providerData[0].uid),
+        data: { name: user.displayName || user.email, email: user.email },
+      };
       // ...
-      writeUserData(user);
-
-      //set to store
+      firebaseUpload(upload);
       dispatch(setUserData(user))
     })
     .catch((error) => {
-      console.log(error);
+      console.error(error.message);
     });
     
 }
 
-async function writeUserData(user) {
-  console.log(user)
-  try{
-    const id = parseInt(user.providerData[0].uid)
-
-  const data = {
-    name: user.displayName || "none",
-    email: user.email || "none"
+export const firebaseUpload = async (obj) => {
+  const { id, data } = obj;
+  try {
+    await axios.patch(
+      `https://producdev-1277b-default-rtdb.firebaseio.com/users/${id}/userData.json`,
+      data
+    );
+  } catch (error) {
+    console.log(error);
   }
-
-  await axios.patch(
-    `https://producdev-1277b-default-rtdb.firebaseio.com/users/${id}/userData/`,
-    data
-  );
-  }catch(err){
-    console.log(err)
-  }
-  
-}
+};
 
 function Copyright() {
   return (
@@ -106,7 +96,7 @@ function Copyright() {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: "100vh"
+    height: "100vh",
   },
   image: {
     backgroundImage:
@@ -114,37 +104,37 @@ const useStyles = makeStyles((theme) => ({
     backgroundRepeat: "no-repeat",
     backgroundColor: "#19181A",
     backgroundSize: "cover",
-    backgroundPosition: "center"
+    backgroundPosition: "center",
   },
   paper: {
     margin: theme.spacing(8, 4),
     display: "flex",
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: "#A16E83"
+    backgroundColor: "#A16E83",
   },
   github: {
     backgroundColor: "#000000",
     color: "#F5f5f5",
     marginTop: theme.spacing(0.8),
-    marginBottom: theme.spacing(2.5)
+    marginBottom: theme.spacing(2.5),
   },
   google: {
     backgroundColor: "#4285F4",
     color: "#f5f5f5",
-    marginTop: theme.spacing(2.5)
+    marginTop: theme.spacing(2.5),
   },
   ghicon: {
-    marginRight: theme.spacing(1.5)
-  }
+    marginRight: theme.spacing(1.5),
+  },
 }));
 
 export default function Signin() {
   const classes = useStyles();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
