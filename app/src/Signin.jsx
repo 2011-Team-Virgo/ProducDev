@@ -74,11 +74,11 @@ function handleGitHub(dispatch) {
 async function writeUserData(user) {
   console.log(user)
   try{
-    const id = Number(user.providerData[0].uid)
+    const id = parseInt(user.providerData[0].uid)
 
   const data = {
-    name: user.name? user.name:"N/A",
-    email: user.email? user.email: "N/A"
+    name: user.displayName || "none",
+    email: user.email || "none"
   }
 
   await axios.patch(
