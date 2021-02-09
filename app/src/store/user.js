@@ -29,7 +29,7 @@ export const setUserData= (user)=>{
             console.log(user)
             const id = Number(user.providerData[0].uid)
             const {displayName,email,photoURL} = user
-            console.log(id)
+            console.log("user:", user)
             dispatch(setUser({displayName,email,photoURL,id}))
         }catch(err){
             console.log(err)
