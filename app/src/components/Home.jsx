@@ -22,23 +22,31 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1)
   },
   button: {
-    backgroundColor: "#479761",
-    color: "#f5f5f5"
+    height: "40px",
+    width: "100px",
+    backgroundColor: "#cebc81",
+    border: "none",
+    borderRadius: "2em",
+    display: "inline-block",
+    "&:hover": {
+      cursor: "pointer",
+      border: "solid white"
+    }
+  },
+  image: {
+    height: "407.995px",
+    width: "726px"
   }
 }));
 
 const Home = () => {
   const classes = useStyles();
   return (
-    <div>
-      {/* <Grid container spacing={1}>
-        <Grid item xs={12} sm={6}>
-          <Paper className={classes.paper}></Paper>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <Paper className={classes.paper}></Paper>
-        </Grid>
-      </Grid> */}
+    <div id="mainContent">
+      <button className={classes.button}>Get the Extension</button>
+      <img
+        className={classes.image}
+        src="https://i.pinimg.com/originals/1d/b2/fe/1db2fe7e19861900a2d9260cd1272727.jpg"></img>
     </div>
   );
 };
