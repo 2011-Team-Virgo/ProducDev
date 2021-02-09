@@ -14,7 +14,7 @@ import {
   Typography,
   Checkbox,
 } from '@material-ui/core'
-
+import axios from 'axios'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import {makeStyles } from '@material-ui/core/styles';
@@ -53,15 +53,14 @@ function handleGitHub(dispatch) {
     .signInWithPopup(provider)
     .then((result) => {
       /** @type {firebase.auth.OAuthCredential} */
-      var credential = result.credential;
+      let credential = result.credential;
 
       // This gives you a Google Access Token. You can use it to access the Google API.
       // var token = credential.accessToken;
       // The signed-in user info.
-      var user = result.user;
-
+      let user = result.user;
       // ...
-      writeUserData(user.uid, user.displayName, user.email);
+      writeUserData(user);
 
       //set to store
       dispatch(setUserData(user))
@@ -72,14 +71,24 @@ function handleGitHub(dispatch) {
     
 }
 
-function writeUserData(userId, name, email) {
-  firebase
-    .database()
-    .ref("users/" + userId)
-    .set({
-      name: name,
-      email: email
-    });
+async function writeUserData(user) {
+  console.log(user)
+  try{
+    const id = Number(user.providerData[0].uid)
+
+  const data = {
+    name: user.name? user.name:"N/A",
+    email: user.email? user.email: "N/A"
+  }
+
+  await axios.patch(
+    `https://producdev-1277b-default-rtdb.firebaseio.com/users/${id}/userData/`,
+    data
+  );
+  }catch(err){
+    console.log(err)
+  }
+  
 }
 
 function Copyright() {
