@@ -9,10 +9,17 @@
     "@testing-library/react": "^11.2.3",
     "@testing-library/user-event": "^12.6.2",
     "axios": "^0.21.1",
+<<<<<<< HEAD
+    "chart.js": "^2.9.4",
+=======
     "d3": "^6.5.0",
+>>>>>>> f55fcfb604ee4a7ff75e60e4c00ee13ac16377ab
     "firebase": "^8.2.5",
+    "moment": "^2.29.1",
     "react": "^17.0.1",
+    "react-chartjs-2": "^2.11.1",
     "react-dom": "^17.0.1",
+    "react-helmet": "^6.1.0",
     "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",

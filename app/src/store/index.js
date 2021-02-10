@@ -5,7 +5,7 @@ import thunkMiddleware from 'redux-thunk'
 //import reducers
 import user from './user'
 
-const reducer = combineReducers({user})
+const reducer = combineReducers({userState:user})
 
 const middleware = composeWithDevTools(
     applyMiddleware(thunkMiddleware,createLogger({collapsed:true}))

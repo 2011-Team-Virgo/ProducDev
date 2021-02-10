@@ -5,8 +5,8 @@ import {removeUserData} from '../store/user'
 export default function Account(props) {
   const {history} = props
   const dispatch = useDispatch();
-  const user = useSelector(state=>state.user)
-  console.log("user", user)
+  const user = useSelector(state=>state.userState.user) || {}
+  
   function signOut() {
     // [START auth_sign_out]
     firebase.auth().signOut().then(() => {
