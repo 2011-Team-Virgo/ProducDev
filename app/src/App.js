@@ -1,6 +1,6 @@
 import "./style/App.css";
 import React from "react";
-import Home from "./style/Home";
+import Home from "./components/Home";
 import NavBar from "./components/NavBar";
 import Analytics from "./components/Analytics";
 import Account from "./components/Account";
