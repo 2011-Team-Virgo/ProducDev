@@ -24,10 +24,6 @@ import "firebase/database";
 
 function handleGitHub(dispatch) {
   const provider = new firebase.auth.GithubAuthProvider();
-<<<<<<< HEAD
-=======
-  console.log("provider: ", provider);
->>>>>>> f55fcfb604ee4a7ff75e60e4c00ee13ac16377ab
   firebase
     .auth()
     .signInWithPopup(provider)
