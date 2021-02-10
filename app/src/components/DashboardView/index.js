@@ -18,26 +18,24 @@ const useStyles = makeStyles((theme) => ({
 const Dashboard = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const {user, userData} = useSelector((state) => state.userState);
+  const { user, userData } = useSelector((state) => state.userState);
 
   //user and userData
-  const {projects} = userData || {}
-  console.log("data from analytics page ", user, userData);
+  const { projects } = userData || {};
 
   useEffect(() => {
-    const data = user ? dispatch(fetchUserData(user.id)) : null
-
+    const data = user ? dispatch(fetchUserData(user.id)) : null;
   }, [dispatch]);
-  
+
   return (
     <Page className={classes.root} title="Dashboard">
       <Container maxWidth={false}>
         <Grid container spacing={3}>
           <Grid item lg={8} md={12} xl={9} xs={12}>
-            <Data />
+            <Data projects={projects} />
           </Grid>
           <Grid item lg={4} md={6} xl={3} xs={12}>
-            <ActivityByProject />
+            <ActivityByProject projects={projects} />
           </Grid>
         </Grid>
       </Container>

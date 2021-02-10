@@ -12,7 +12,7 @@ import {
   Box,
   Grid,
   Typography,
-  Checkbox
+  Checkbox,
 } from "@material-ui/core";
 import axios from "axios";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
@@ -24,10 +24,6 @@ import "firebase/database";
 
 function handleGitHub(dispatch) {
   const provider = new firebase.auth.GithubAuthProvider();
-<<<<<<< HEAD
-=======
-  console.log("provider: ", provider);
->>>>>>> f55fcfb604ee4a7ff75e60e4c00ee13ac16377ab
   firebase
     .auth()
     .signInWithPopup(provider)
@@ -36,7 +32,7 @@ function handleGitHub(dispatch) {
       var user = result.user;
       const upload = {
         id: parseInt(user.providerData[0].uid),
-        data: { name: user.displayName || user.email, email: user.email }
+        data: { name: user.displayName || user.email, email: user.email },
       };
       // ...
       firebaseUpload(upload);
@@ -74,7 +70,7 @@ function Copyright() {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: "100vh"
+    height: "100vh",
   },
   image: {
     backgroundImage:
@@ -82,32 +78,32 @@ const useStyles = makeStyles((theme) => ({
     backgroundRepeat: "no-repeat",
     backgroundColor: "#19181A",
     backgroundSize: "cover",
-    backgroundPosition: "center"
+    backgroundPosition: "center",
   },
   paper: {
     margin: theme.spacing(8, 4),
     display: "flex",
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: "#A16E83"
+    backgroundColor: "#A16E83",
   },
   github: {
     backgroundColor: "#000000",
     color: "#F5f5f5",
     marginTop: theme.spacing(0.8),
-    marginBottom: theme.spacing(2.5)
+    marginBottom: theme.spacing(2.5),
   },
   google: {
     backgroundColor: "#4285F4",
     color: "#f5f5f5",
-    marginTop: theme.spacing(2.5)
+    marginTop: theme.spacing(2.5),
   },
   ghicon: {
-    marginRight: theme.spacing(1.5)
-  }
+    marginRight: theme.spacing(1.5),
+  },
 }));
 
 export default function Signin() {
@@ -129,7 +125,8 @@ export default function Signin() {
             variant="contained"
             onClick={() => {
               handleGitHub(dispatch);
-            }}>
+            }}
+          >
             <GitHubIcon className={classes.ghicon} />
             Continue with Github
           </Button>

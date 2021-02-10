@@ -1,133 +1,107 @@
-import React from "react";
-import clsx from "clsx";
-import PropTypes from "prop-types";
-import { Bar } from "react-chartjs-2";
+/* eslint-disable no-unused-vars */
+import React, { useEffect } from "react";
 import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
-  useTheme,
   makeStyles,
-  colors,
+  InputLabel,
+  FormHelperText,
+  FormControl,
+  Select,
+  NativeSelect,
 } from "@material-ui/core";
-import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
-import ArrowRightIcon from "@material-ui/icons/ArrowRight";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchUserData } from "../../store/user";
 
 const useStyles = makeStyles(() => ({
   root: {},
+  formControl: {
+    backgroundColor: "#FFFFFF",
+  },
 }));
 
 const Data = ({ className, ...rest }) => {
   const classes = useStyles();
-  const theme = useTheme();
+  const dispatch = useDispatch();
+  const { user, userData } = useSelector((state) => state.userState);
 
-  const data = {
-    datasets: [
-      {
-        backgroundColor: colors.indigo[500],
-        data: [18, 5, 19, 27, 29, 19, 20],
-        label: "This year",
-      },
-      {
-        backgroundColor: colors.grey[200],
-        data: [11, 20, 12, 29, 30, 25, 13],
-        label: "Last year",
-      },
-    ],
-    labels: ["1 Aug", "2 Aug", "3 Aug", "4 Aug", "5 Aug", "6 Aug"],
+  //user and userData
+  const { projects } = userData || {};
+
+  useEffect(() => {
+    const data = user ? dispatch(fetchUserData(user.id)) : null;
+  }, [dispatch]);
+
+  const projectNames = projects ? Object.keys(projects) : [];
+
+  // to filter by project name
+  const [state, setState] = React.useState({
+    selectedProject: "",
+  });
+
+  const handleChange = (event) => {
+    setState({
+      ...state,
+      selectedProject: event.target.value,
+    });
+    console.log(state.selectedProject);
   };
 
-  const options = {
-    animation: false,
-    cornerRadius: 20,
-    layout: { padding: 0 },
-    legend: { display: false },
-    maintainAspectRatio: false,
-    responsive: true,
-    scales: {
-      xAxes: [
-        {
-          barThickness: 12,
-          maxBarThickness: 10,
-          barPercentage: 0.5,
-          categoryPercentage: 0.5,
-          ticks: {
-            fontColor: theme.palette.text.secondary,
-          },
-          gridLines: {
-            display: false,
-            drawBorder: false,
-          },
-        },
-      ],
-      yAxes: [
-        {
-          ticks: {
-            fontColor: theme.palette.text.secondary,
-            beginAtZero: true,
-            min: 0,
-          },
-          gridLines: {
-            borderDash: [2],
-            borderDashOffset: [2],
-            color: theme.palette.divider,
-            drawBorder: false,
-            zeroLineBorderDash: [2],
-            zeroLineBorderDashOffset: [2],
-            zeroLineColor: theme.palette.divider,
-          },
-        },
-      ],
-    },
-    tooltips: {
-      backgroundColor: theme.palette.background.default,
-      bodyFontColor: theme.palette.text.secondary,
-      borderColor: theme.palette.divider,
-      borderWidth: 1,
-      enabled: true,
-      footerFontColor: theme.palette.text.secondary,
-      intersect: false,
-      mode: "index",
-      titleFontColor: theme.palette.text.primary,
-    },
-  };
+  console.log(projects);
+
+  function objFilter(obj, predicate) {
+    let result = {},
+      key;
+
+    for (key in obj) {
+      if (obj.hasOwnProperty(key) && !predicate(obj[key])) {
+        result[key] = obj[key];
+      }
+    }
+
+    return result;
+  }
+
+  // console.log(
+  //   "obj filter ",
+  //   objFilter(projects, (project) => project === state.selectedProject)
+  // );
+
+  function getData() {
+    let result = [];
+    let byFile = [];
+
+    for (let x in projects) {
+      for (let val of x) {
+        result.push(val);
+      }
+    }
+    return result;
+  }
+
+  console.log("get data ", getData());
+
+  // const data = [
+  //   {
+  //     time: 2021-02-08,
+  //     keystrokes: 500,
+  //     minutes: 20,
+  //   },
+  // ]
+  // ^^needs to be this format
 
   return (
-    <Card className={clsx(classes.root, className)} {...rest}>
-      <CardHeader
-        action={
-          <Button endIcon={<ArrowDropDownIcon />} size="small" variant="text">
-            Last 7 days
-          </Button>
-        }
-        title="Latest Data"
-      />
-      <Divider />
-      <CardContent>
-        <Box height={400} position="relative">
-          <Bar data={data} options={options} />
-        </Box>
-      </CardContent>
-      <Divider />
-      <Box display="flex" justifyContent="flex-end" p={2}>
-        <Button
-          color="primary"
-          endIcon={<ArrowRightIcon />}
-          size="small"
-          variant="text"
-        >
-          Overview
-        </Button>
-      </Box>
-    </Card>
+    <div>
+      <FormControl className={classes.formControl}>
+        <InputLabel htmlFor="selectedProject-native-simple">Project</InputLabel>
+        <Select native value={state.selectedProject} onChange={handleChange}>
+          <option aria-label="None" value="" />
+          {projectNames &&
+            projectNames.map((x) => {
+              return <option value={x}>{x}</option>;
+            })}
+        </Select>
+      </FormControl>
+    </div>
   );
-};
-
-Data.propTypes = {
-  className: PropTypes.string,
 };
 
 export default Data;
