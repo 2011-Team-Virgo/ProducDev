@@ -24,3 +24,6 @@ yarn-error.log*
 
 .eslintcache
 src/firebase/firebase_config.js
+
+.firebase
+package-lock.json
