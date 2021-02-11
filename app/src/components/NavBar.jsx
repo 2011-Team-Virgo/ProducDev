@@ -10,7 +10,11 @@ import {
 } from "@material-ui/core";
 import { withRouter, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import colors from "../colors";
 
+const { red, darkBlue, lightBlue } = colors;
+
+console.log(colors);
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1
@@ -23,11 +27,11 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold"
   },
   navbar: {
-    color: "#cebc81",
-    backgroundColor: "transparent"
+    color: red,
+    backgroundColor: darkBlue
   },
   link: {
-    color: "#cebc81",
+    color: red,
     textDecoration: "none"
   },
   linkRoutes: {
@@ -61,8 +65,7 @@ const NavBar = (props) => {
               ProducDev
             </Link>
           </Typography>
-          {
-            user.id ? 
+          {user.id ? (
             <div>
               <IconButton
                 edge="start"
@@ -85,7 +88,7 @@ const NavBar = (props) => {
                 />
               </IconButton>
             </div>
-           : (
+          ) : (
             <Link to="/signin" className={classes.link}>
               Sign in
             </Link>

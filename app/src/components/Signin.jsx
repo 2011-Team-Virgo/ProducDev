@@ -21,13 +21,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
+import colors from "../colors";
+
+const { red, lightBlue, darkBlue } = colors;
 
 function handleGitHub(dispatch) {
   const provider = new firebase.auth.GithubAuthProvider();
-<<<<<<< HEAD
-=======
-  console.log("provider: ", provider);
->>>>>>> f55fcfb604ee4a7ff75e60e4c00ee13ac16377ab
   firebase
     .auth()
     .signInWithPopup(provider)
@@ -92,7 +91,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: "#A16E83"
+    backgroundColor: red
   },
   github: {
     backgroundColor: "#000000",
