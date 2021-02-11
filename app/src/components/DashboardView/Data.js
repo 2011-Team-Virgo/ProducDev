@@ -106,8 +106,6 @@ const Data = (props) => {
     return result;
   }
 
-  console.log("get data ", getData());
-
   // const data = [
   //   {
   //     time: 2021-02-08,
