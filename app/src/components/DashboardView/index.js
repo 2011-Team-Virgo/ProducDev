@@ -18,12 +18,15 @@ const useStyles = makeStyles((theme) => ({
 const Dashboard = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const state = useSelector((state)=>state);
+  console.log(state)
   const { user, userData } = useSelector((state) => state.userState);
 
   //user and userData
   const { projects } = userData || {};
 
   useEffect(() => {
+    console.log("hello")
     const data = user ? dispatch(fetchUserData(user.id)) : null;
   }, [dispatch]);
 

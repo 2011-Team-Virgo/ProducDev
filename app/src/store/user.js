@@ -26,6 +26,7 @@ const _fetchUserData = (userData) => ({
 export const fetchUserData = (id) => {
   return async (dispatch) => {
     try {
+      console.log("Fetching Data")
       const { data } = await axios.get(
         `https://producdev-1277b-default-rtdb.firebaseio.com/users/${id}.json`
       );
@@ -54,7 +55,6 @@ export const removeUserData = () => {
   console.log("remove");
   return async (dispatch) => {
     try {
-      console.log("here");
       dispatch(removeUser());
     } catch (err) {
       console.log(err);
@@ -64,7 +64,7 @@ export const removeUserData = () => {
 
 //Reducer
 export default function userReducer(state = initialState, action) {
-  console.log(action);
+
   switch (action.type) {
     case SET_USER:
       return {...state,user:action.user};

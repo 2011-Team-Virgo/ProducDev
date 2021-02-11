@@ -22,7 +22,7 @@ const Data = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { user, userData } = useSelector((state) => state.userState);
- 
+  console.log(user,userData)
   //user and userData
   const { projects } = userData || {};
 
@@ -61,8 +61,9 @@ const Data = (props) => {
     }
     return result
   }
-  const projectData = cleanData(projects)
-  console.log("project data", projectData)
+  
+  const projectData = projects && cleanData(projects) 
+  console.log(projectData)
   // to filter by project name
   const [state, setState] = React.useState({
     selectedProject: "",
