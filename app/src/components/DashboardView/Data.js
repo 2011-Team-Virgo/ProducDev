@@ -18,20 +18,51 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Data = ({ className, ...rest }) => {
+const Data = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { user, userData } = useSelector((state) => state.userState);
-
+ 
   //user and userData
   const { projects } = userData || {};
 
-  useEffect(() => {
-    const data = user ? dispatch(fetchUserData(user.id)) : null;
-  }, [dispatch]);
-
   const projectNames = projects ? Object.keys(projects) : [];
 
+  const cleanData = (projects)=>{
+    const result = []
+    for (const [key, fileData] of Object.entries(projects)) {
+      //key: projectNAme
+      //fileData: fileData
+      const projectData = {
+        name:key,
+        fileData:[]
+      }
+      for(const [key, value1] of Object.entries(fileData)){
+        //key: filename
+        //value1: timeStamp object {keystrokes, minutes}
+        const file = {
+          fileName: key,
+          data:[]
+        }
+        for(const [key, value2] of Object.entries(value1)){
+          const index = key.indexOf("_")
+          const data = {
+            date: key.slice(0,index),
+            time: key.slice(index+1),
+            keyStrokes: value2.keystrokes,
+            minutes: value2.minutes
+          }
+
+          file.data.push(data);
+        }
+        projectData.fileData.push(file)
+      }
+      result.push(projectData)
+    }
+    return result
+  }
+  const projectData = cleanData(projects)
+  console.log("project data", projectData)
   // to filter by project name
   const [state, setState] = React.useState({
     selectedProject: "",
@@ -44,8 +75,6 @@ const Data = ({ className, ...rest }) => {
     });
     console.log(state.selectedProject);
   };
-
-  console.log(projects);
 
   function objFilter(obj, predicate) {
     let result = {},
