@@ -73,20 +73,12 @@ const Data = (props) => {
       }
       result.push(projectData);
     }
-<<<<<<< HEAD
-    return result
-  }
-  
-  const projectData = projects && cleanData(projects) 
-  console.log(projectData)
-=======
     return result;
   };
   const projectData = projects && cleanData(projects);
 
   console.log("project data", projectData);
 
->>>>>>> 736f7507d91f3df070781de0b4760f18de282cc5
   // to filter by project name
   const [state, setState] = React.useState({
     selectedProject: "",
