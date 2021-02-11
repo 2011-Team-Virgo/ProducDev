@@ -4,7 +4,7 @@ import Page from "../Page";
 import Data from "./Data";
 import ActivityByProject from "./ActivityByProject";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchUserData } from "../../store/user";
+import { fetchUserData } from "../../store/user.js";
 
 const useStyles = makeStyles((theme) => ({
   root: {
