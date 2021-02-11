@@ -11,16 +11,16 @@ const initialState = {};
 //Action Creators
 const setUser = (user) => ({
   type: SET_USER,
-  user,
+  user
 });
 const removeUser = () => ({
   type: REMOVE_USER,
-  user: {},
+  user: {}
 });
 
 const _fetchUserData = (userData) => ({
   type: FETCH_USER_DATA,
-  userData,
+  userData
 });
 
 export const fetchUserData = (id) => {
@@ -36,42 +36,33 @@ export const fetchUserData = (id) => {
   };
 };
 
-export const setUserData= (user)=>{
-    return async(dispatch)=>{
-        try{
-            console.log(user)
-            const id = Number(user.providerData[0].uid)
-            const {displayName,email,photoURL} = user;
-            console.log("user:", user)
-            dispatch(setUser({displayName,email,photoURL,id}))
-        }catch(err){
-            console.log(err)
-        }
-    }
+export const setUserData = (user) => {
+  return async (dispatch) => {
+    try {
+      const id = Number(user.providerData[0].uid);
+      const { displayName, email, photoURL } = user;
+      dispatch(setUser({ displayName, email, photoURL, id }));
+    } catch (err) {}
+  };
 };
 
 export const removeUserData = () => {
-  console.log("remove");
   return async (dispatch) => {
     try {
-      console.log("here");
       dispatch(removeUser());
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 };
 
 //Reducer
 export default function userReducer(state = initialState, action) {
-  console.log(action);
   switch (action.type) {
     case SET_USER:
-      return {...state,user:action.user};
+      return { ...state, user: action.user };
     case REMOVE_USER:
       return action.user;
     case FETCH_USER_DATA:
-      return {...state, userData: action.userData}
+      return { ...state, userData: action.userData };
     default:
       return state;
   }
