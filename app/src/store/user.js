@@ -11,16 +11,16 @@ const initialState = {};
 //Action Creators
 const setUser = (user) => ({
   type: SET_USER,
-  user,
+  user
 });
 const removeUser = () => ({
   type: REMOVE_USER,
-  user: {},
+  user: {}
 });
 
 const _fetchUserData = (userData) => ({
   type: FETCH_USER_DATA,
-  userData,
+  userData
 });
 
 export const fetchUserData = (id) => {
@@ -51,19 +51,15 @@ export const setUserData = (user) => {
 };
 
 export const removeUserData = () => {
-  console.log("remove");
   return async (dispatch) => {
     try {
       dispatch(removeUser());
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 };
 
 //Reducer
 export default function userReducer(state = initialState, action) {
-
   switch (action.type) {
     case SET_USER:
       return { ...state, user: action.user };

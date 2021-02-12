@@ -13,10 +13,11 @@ code {
 }
 
 .userInfo {
+  color: #e54b4b;
   padding: 5px;
   display: flex;
   align-items: center;
-  border: 1px solid #cebc81;
+  /* border: 1px solid #cebc81; */
   border-radius: 5px;
 }
 
