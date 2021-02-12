@@ -11,7 +11,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.dark,
     minHeight: "100%",
     paddingBottom: theme.spacing(3),
-    paddingTop: theme.spacing(3),
   },
 }));
 
@@ -19,7 +18,6 @@ const Dashboard = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const state = useSelector((state)=>state);
-  console.log(state)
   const { user, userData } = useSelector((state) => state.userState);
 
   //user and userData
@@ -32,13 +30,14 @@ const Dashboard = () => {
   return (
     <Page className={classes.root} title="Dashboard">
       <Container maxWidth={false}>
+        <h1>Select your project and file.</h1>
         <Grid container spacing={3}>
           <Grid item lg={8} md={12} xl={9} xs={12}>
             <Data projects={projects} />
           </Grid>
-          <Grid item lg={4} md={6} xl={3} xs={12}>
+          {/* <Grid item lg={4} md={6} xl={3} xs={12}>
             <ActivityByProject projects={projects} />
-          </Grid>
+          </Grid> */}
         </Grid>
       </Container>
     </Page>
