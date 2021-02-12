@@ -33,6 +33,7 @@ function handleGitHub(dispatch) {
     .then((result) => {
       /** @type {firebase.auth.OAuthCredential} */
       var user = result.user;
+      console.log(user);
       const upload = {
         id: parseInt(user.providerData[0].uid),
         data: { name: user.displayName || user.email, email: user.email }

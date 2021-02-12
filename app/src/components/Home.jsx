@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import colors from "../colors";
 import { useMediaQuery } from "@material-ui/core";
+import { AutorenewTwoTone } from "@material-ui/icons";
 
 const { red, darkBlue, lightBlue } = colors;
 
@@ -44,8 +45,10 @@ const useStyles = makeStyles((theme) => ({
   graph: {
     margin: "10px",
     padding: "10px",
-    height: "65vh",
-    width: "80vw"
+    maxWidth: "90vw",
+    maxHeight: "90vh",
+    height: "auto",
+    width: "auto"
   }
 }));
 
