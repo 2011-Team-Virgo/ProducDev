@@ -1,46 +1,59 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
+import colors from "../colors";
+import { useMediaQuery } from "@material-ui/core";
+
+const { red, darkBlue, lightBlue } = colors;
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    margin: "20px",
     display: "flex",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-    flexWrap: "wrap"
+    flexDirection: "row",
+    alignItems: "center"
   },
   info: {
     display: "flex",
-    alignContent: "space-around",
     flexDirection: "column",
-    p: {
-      color: "black"
-    }
+    alignContent: "center",
+    margin: "10px"
   },
   button: {
+    display: "flex",
+    alignSelf: "center",
     height: "37px",
     width: "100px",
-    backgroundColor: "#e54b4b",
+    backgroundColor: red,
     border: "none",
     borderRadius: "2em",
     outline: "none",
     "&:hover": {
-      margin: "10px",
-      height: "50px",
-      width: "115px",
       cursor: "pointer",
-      border: " solid #032b43"
+      border: "1px solid" + darkBlue
     },
     "&:active": {
-      backgroundColor: "#2ec4b6",
+      backgroundColor: lightBlue,
       border: "none"
     }
   },
-  image: {
+  words: {
+    textAlign: "center",
+    margin: "8vh"
+  },
+  graph: {
     margin: "10px",
     padding: "10px",
-    height: "407.995px",
-    width: "726px"
+    height: "65vh",
+    width: "80vw"
+  }
+}));
+
+const mobileStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center"
   }
 }));
 
@@ -52,12 +65,18 @@ const Home = () => {
     );
   };
   const classes = useStyles();
+  const mobileClasses = mobileStyles();
+
+  const isTablet = useMediaQuery("(max-width: 1024px)");
+
   return (
-    <div id="mainContent" className={classes.root}>
+    <div
+      id="mainContent"
+      className={isTablet ? mobileClasses.root : classes.root}>
       <div className={classes.info}>
-        <p>
+        <p className={classes.words}>
           ProducDev is an extension built to track various metrics of your
-          productivity within VSCode.{" "}
+          productivity within VSCode.
         </p>
         <button
           className={classes.button}
@@ -67,7 +86,7 @@ const Home = () => {
         </button>
       </div>
       <img
-        className={classes.image}
+        className={classes.graph}
         alt="graph"
         src="https://i.pinimg.com/originals/1d/b2/fe/1db2fe7e19861900a2d9260cd1272727.jpg"></img>
     </div>

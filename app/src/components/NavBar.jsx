@@ -14,7 +14,6 @@ import colors from "../colors";
 
 const { red, darkBlue, lightBlue } = colors;
 
-console.log(colors);
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1
