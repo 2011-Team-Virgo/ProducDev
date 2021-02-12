@@ -1,6 +1,7 @@
 {
   "name": "app",
   "version": "0.1.0",
+  "type": "module",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.3",
@@ -31,7 +32,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "react-scripts build && firebase deploy",
+    "deploy": "npm run build && firebase deploy --only hosting, database",
     "emu": "firebase emulators:start"
   },
   "eslintConfig": {
