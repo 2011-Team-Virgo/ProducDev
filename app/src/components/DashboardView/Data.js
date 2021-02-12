@@ -34,7 +34,6 @@ const Data = (props) => {
   //user and userData
   const { projects } = userData || {};
 
-  const projectNames = projects ? Object.keys(projects) : [];
   const cleanData = (projects) => {
     const result = [];
     for (const [key, fileData] of Object.entries(projects)) {
@@ -84,6 +83,74 @@ const Data = (props) => {
     });
   };
 
+  //if no project is selected, renders all data:
+  const allProjects = (arr) => {
+    let allProjects = [];
+    if (state.selectedProject === "") {
+      arr.map((elem) => {
+        return elem.fileData.map((e) => {
+          return e.data.map((x) => {
+            return allProjects.push(x);
+          });
+        });
+      });
+      return allProjects;
+    } else {
+      return [];
+    }
+  };
+
+  //if a project is selected but a file is not:
+  const allFilesData = (arr) => {
+    let allFiles = [];
+    let intervals = [];
+    if (state.selectedProject !== "") {
+      arr
+        .filter((project) => {
+          return project.name === state.selectedProject;
+        })
+        .map((file) => {
+          return allFiles.push(file.fileData);
+        });
+      allFiles.map((elem) => {
+        return intervals.push(elem[0].data);
+      });
+
+      return intervals[0];
+    } else return [];
+  };
+
+  //if a project and a file are both selected:
+  const singleFileData = (arr) => {
+    let singleFile = [];
+    let selected = [];
+    if (state.selectedProject !== "" && state.selectedFile !== "") {
+      arr
+        .filter((project) => {
+          return project.name === state.selectedProject;
+        })
+        .map((elem) => {
+          return selected.push(elem.fileData);
+        });
+
+      selected.filter((elem) => {
+        return elem.fileName === state.selectedFile;
+      });
+      return selected[0][0].data;
+    } else return [];
+  };
+
+  const chartData = (arr) => {
+    if (state.selectedProject === "") return allProjects(arr);
+    if (state.selectedProject !== "" && state.selectedFile === "")
+      return allFilesData(arr);
+    if (state.selectedProject !== "" && state.selectedFile !== "")
+      return singleFileData(arr);
+    else return [];
+  };
+
+  console.log("chart data ", chartData(projectData));
+
   return (
     <div>
       <FormControl className={classes.formControl}>
@@ -118,42 +185,37 @@ const Data = (props) => {
             projectData
               .filter((project) => project.name === state.selectedProject)
               .map((file) => {
-                file.fileData.map((x) => {
+                return file.fileData.map((x) => {
                   return <option value={x.fileName}>{x.fileName}</option>;
                 });
               })}
         </Select>
       </FormControl>
+      <LineChart
+        width={500}
+        height={300}
+        data={chartData(projectData)}
+        margin={{
+          top: 5,
+          right: 30,
+          left: 20,
+          bottom: 5,
+        }}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="date" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Line
+          type="monotone"
+          dataKey="keystrokes"
+          stroke="#8884d8"
+          activeDot={{ r: 8 }}
+        />
+        <Line type="monotone" dataKey="minutes" stroke="#82ca9d" />
+      </LineChart>
     </div>
-  );
-};
-
-const Chart = () => {
-  return (
-    <LineChart
-      width={500}
-      height={300}
-      // data={data}
-      margin={{
-        top: 5,
-        right: 30,
-        left: 20,
-        bottom: 5,
-      }}
-    >
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
-      <YAxis />
-      <Tooltip />
-      <Legend />
-      <Line
-        type="monotone"
-        dataKey="pv"
-        stroke="#8884d8"
-        activeDot={{ r: 8 }}
-      />
-      <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-    </LineChart>
   );
 };
 
