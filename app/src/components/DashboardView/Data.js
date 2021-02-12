@@ -31,18 +31,11 @@ const Data = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { user, userData } = useSelector((state) => state.userState);
-<<<<<<< HEAD
-  console.log(user,userData)
-=======
-
->>>>>>> 736f7507d91f3df070781de0b4760f18de282cc5
   //user and userData
   const { projects } = userData || {};
 
   const projectNames = projects ? Object.keys(projects) : [];
-  console.log("props ", props);
   const cleanData = (projects) => {
-    console.log("clean data projects ", projects);
     const result = [];
     for (const [key, fileData] of Object.entries(projects)) {
       //key: projectNAme
@@ -77,8 +70,6 @@ const Data = (props) => {
   };
   const projectData = projects && cleanData(projects);
 
-  console.log("project data", projectData);
-
   // to filter by project name
   const [state, setState] = React.useState({
     selectedProject: "",
@@ -91,9 +82,6 @@ const Data = (props) => {
       ...state,
       [name]: event.target.value,
     });
-    console.log(state.selectedProject);
-    console.log(state.selectedFile);
-    console.log("event ", event.target);
   };
 
   return (

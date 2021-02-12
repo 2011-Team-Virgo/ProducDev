@@ -26,7 +26,6 @@ const Dashboard = () => {
   const { projects } = userData || {};
 
   useEffect(() => {
-    console.log("hello")
     const data = user ? dispatch(fetchUserData(user.id)) : null;
   }, [dispatch]);
 

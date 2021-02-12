@@ -57,7 +57,6 @@ export default function Account(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userState.user) || {};
-  console.log(user);
   function signOut() {
     // [START auth_sign_out]
     firebase
