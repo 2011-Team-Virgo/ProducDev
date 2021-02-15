@@ -16,7 +16,6 @@ const useStyles = makeStyles({});
 function App() {
   const classes = useStyles();
   const user = useSelector(state=>state.userState.user)
-  console.log(user)
   return (
     <div className={classes.container}>
       <NavBar />
