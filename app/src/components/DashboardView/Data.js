@@ -302,85 +302,81 @@ const Data = (props) => {
 
   return (
     <>
-      <Grid container spacing={1}>
+      <FormControl variant="filled" className={classes.formControl}>
+        <InputLabel htmlFor="selectedProject-native-simple">Project</InputLabel>
+        <Select
+          value={state.selectedProject}
+          name="selectedProject"
+          onChange={projHandleChange}
+        >
+          <MenuItem aria-label="None" value="" />
+          {projectData &&
+            projectData.map((x, index) => {
+              return (
+                <MenuItem key={index} value={x.name}>
+                  {x.name}
+                </MenuItem>
+              );
+            })}
+        </Select>
+      </FormControl>
+      {state.selectedProject ? (
         <FormControl variant="filled" className={classes.formControl}>
-          <InputLabel htmlFor="selectedProject-native-simple">
-            Project
-          </InputLabel>
+          <InputLabel htmlFor="selectedProject-native-simple">File</InputLabel>
           <Select
-            value={state.selectedProject}
-            name="selectedProject"
-            onChange={projHandleChange}
+            value={state.selectedFile}
+            name="selectedFile"
+            onChange={fileHandleChange}
           >
             <MenuItem aria-label="None" value="" />
             {projectData &&
-              projectData.map((x, index) => {
-                return (
-                  <MenuItem key={index} value={x.name}>
-                    {x.name}
-                  </MenuItem>
-                );
-              })}
+              projectData
+                .filter((project) => project.name === state.selectedProject)
+                .map((file) => {
+                  return file.fileData.map((x, index) => {
+                    return (
+                      <MenuItem key={index} value={x.fileName}>
+                        {x.fileName}
+                      </MenuItem>
+                    );
+                  });
+                })}
           </Select>
         </FormControl>
-        {state.selectedProject ? (
-          <FormControl variant="filled" className={classes.formControl}>
-            <InputLabel htmlFor="selectedProject-native-simple">
-              File
-            </InputLabel>
-            <Select
-              value={state.selectedFile}
-              name="selectedFile"
-              onChange={fileHandleChange}
+      ) : null}
+      <Container className={classes.lineChart} maxWidth="lg">
+        {state.data.length !== 0 ? (
+          <ResponsiveContainer width="60%" height={300}>
+            <LineChart
+              data={
+                state.selectedProject !== "" && state.selectedFile !== ""
+                  ? state.data
+                  : []
+              }
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5,
+              }}
             >
-              <MenuItem aria-label="None" value="" />
-              {projectData &&
-                projectData
-                  .filter((project) => project.name === state.selectedProject)
-                  .map((file) => {
-                    return file.fileData.map((x, index) => {
-                      return (
-                        <MenuItem key={index} value={x.fileName}>
-                          {x.fileName}
-                        </MenuItem>
-                      );
-                    });
-                  })}
-            </Select>
-          </FormControl>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="date" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Line
+                type="monotone"
+                dataKey="keyStrokes"
+                stroke="#8884d8"
+                activeDot={{ r: 8 }}
+              />
+              <Line type="monotone" dataKey="minutes" stroke="#82ca9d" />
+            </LineChart>
+          </ResponsiveContainer>
         ) : null}
-        <Container className={classes.lineChart} maxWidth="lg">
-          {state.data.length !== 0 ? (
-            <ResponsiveContainer width="60%" height={300}>
-              <LineChart
-                data={
-                  state.selectedProject !== "" && state.selectedFile !== ""
-                    ? state.data
-                    : []
-                }
-                margin={{
-                  top: 5,
-                  right: 30,
-                  left: 20,
-                  bottom: 5,
-                }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="date" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line
-                  type="monotone"
-                  dataKey="keyStrokes"
-                  stroke="#8884d8"
-                  activeDot={{ r: 8 }}
-                />
-                <Line type="monotone" dataKey="minutes" stroke="#82ca9d" />
-              </LineChart>
-            </ResponsiveContainer>
-          ) : null}
-        </Container>
+      </Container>
+      <Grid container>
         <Grid item xs={12} sm={4}>
           <Paper className={classes.paper}>
             <span className={classes.summary}>
