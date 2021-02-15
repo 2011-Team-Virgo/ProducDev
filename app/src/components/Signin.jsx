@@ -25,8 +25,6 @@ import colors from "../colors";
 
 const { red, lightBlue, darkBlue } = colors;
 
-console.log("kdflkfjsldkfj");
-
 function handleGitHub(dispatch) {
   const provider = new firebase.auth.GithubAuthProvider();
   firebase
@@ -35,7 +33,6 @@ function handleGitHub(dispatch) {
     .then((result) => {
       /** @type {firebase.auth.OAuthCredential} */
       var user = result.user;
-      console.log(user);
       const upload = {
         id: parseInt(user.providerData[0].uid),
         data: { name: user.displayName || user.email, email: user.email }
@@ -57,7 +54,7 @@ export const firebaseUpload = async (obj) => {
       data
     );
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
