@@ -344,9 +344,9 @@ const Data = (props) => {
           </Select>
         </FormControl>
       ) : null}
-      <Container className={classes.lineChart} maxWidth="lg">
+      <Container className={classes.lineChart}>
         {state.data.length !== 0 ? (
-          <ResponsiveContainer width="60%" height={300}>
+          <ResponsiveContainer>
             <LineChart
               data={
                 state.selectedProject !== "" && state.selectedFile !== ""
@@ -377,7 +377,7 @@ const Data = (props) => {
         ) : null}
       </Container>
       <Grid container>
-        <Grid item xs={12} sm={4}>
+        <Grid item xs={12}>
           <Paper className={classes.paper}>
             <span className={classes.summary}>
               <ul>
