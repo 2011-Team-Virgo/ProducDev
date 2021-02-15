@@ -35,8 +35,18 @@ const useStyles = makeStyles(() => ({
   },
   lineChart: {
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "start",
     margin: "5%",
+  },
+  paper: {
+    "&:hover": {
+      opacity: "0.6",
+    },
+    color: "#f7ebe8",
+    padding: "3px",
+    margin: "5px",
+    backgroundColor: "transparent",
+    border: [[1, "solid", "#2ec4b6"]],
   },
 }));
 
@@ -154,8 +164,6 @@ const Data = (props) => {
     return `Since using ProducDev, you have made ${keys} keystrokes and coded for ${minutes} minutes`;
   };
 
-  console.log(allTime(), "all time");
-
   const dayOfWeek = () => {
     let days = {
       Monday: 0,
@@ -228,8 +236,6 @@ const Data = (props) => {
     return `Your most productive day of the week is ${maxDay}`;
   };
 
-  console.log("day of week ", dayOfWeek());
-
   const thirtyDays = () => {
     let thirtyDays = new Date();
     thirtyDays.setDate(thirtyDays.getDate() - 30);
@@ -293,8 +299,6 @@ const Data = (props) => {
       ? `This week, your keystrokes were down ${keyDelta}% and your coding time is up ${minDelta}% compared to last week`
       : `This week, your keystrokes are down ${keyDelta}% and your coding time has dropped ${minDelta}% compared to last week`;
   };
-
-  console.log("all projects ", projectData && allProjects(projectData));
 
   return (
     <>
@@ -377,16 +381,16 @@ const Data = (props) => {
             </ResponsiveContainer>
           ) : null}
         </Container>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={4}>
           <Paper className={classes.paper}>
-            <div className={classes.summary}>
+            <span className={classes.summary}>
               <ul>
                 <li>{allTime()}</li>
                 <li>{thirtyDays()}</li>
                 <li>{thisWeek()}</li>
                 <li>{dayOfWeek()}</li>
               </ul>
-            </div>
+            </span>
           </Paper>
         </Grid>
       </Grid>
