@@ -12,7 +12,7 @@ import {
   Card,
   CardContent,
   CardActions,
-  CardMedia,
+  CardMedia
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -22,35 +22,35 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: "5%",
     borderRadius: "30%",
     margin: "5%",
-    padding: "5%",
+    padding: "5%"
   },
   profileImg: {
     height: "30vh",
-    width: "30vh",
+    width: "30vh"
   },
   profInfo: {
     margin: "5%",
-    padding: "5%",
+    padding: "5%"
   },
   profBtn: {
-    paddingTop: "5%",
+    paddingTop: "5%"
   },
   infoGrid: {
     order: 2,
     fontSize: "8px",
     [theme.breakpoints.up(`768`)]: {
       order: 1,
-      fontSize: "12px",
+      fontSize: "12px"
     },
-    margin: "auto",
+    margin: "auto"
   },
   imgGrid: {
     order: 1,
     [theme.breakpoints.up(`768`)]: {
-      order: 2,
+      order: 2
     },
-    margin: "auto",
-  },
+    margin: "auto"
+  }
 }));
 export default function Account(props) {
   const { history } = props;
@@ -67,7 +67,7 @@ export default function Account(props) {
         history.push("/");
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
     // [END auth_sign_out]
   }
@@ -85,8 +85,7 @@ export default function Account(props) {
               <Button
                 variant="contained"
                 color="primary"
-                onClick={() => signOut()}
-              >
+                onClick={() => signOut()}>
                 Logout
               </Button>
             </CardActions>

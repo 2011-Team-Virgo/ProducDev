@@ -3,8 +3,8 @@
 // ensuring sample correctness offline.
 import firebase from "../firebase";
 import "firebase/auth";
-import {setUserData} from '../store/user'
-import {useDispatch} from 'react-redux'
+import { setUserData } from "../store/user";
+import { useDispatch } from "react-redux";
 // Docs: https://source.corp.google.com/piper///depot/google3/third_party/devsite/firebase/en/docs/auth/web/google-signin.md
 
 export function googleProvider() {
@@ -13,20 +13,21 @@ export function googleProvider() {
   // [END auth_google_provider_create]
 
   // [START auth_google_provider_scopes]
-  provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+  provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
   // [END auth_google_provider_scopes]
-  
+
   // [START auth_google_provider_params]
   provider.setCustomParameters({
-    'login_hint': 'user@example.com'
+    login_hint: "user@example.com"
   });
-  return provider
+  return provider;
   // [END auth_google_provider_params]
 }
 
 export function googleSignInPopup(provider) {
   // [START auth_google_signin_popup]
-  firebase.auth()
+  firebase
+    .auth()
     .signInWithPopup(provider)
     .then((result) => {
       /** @type {firebase.auth.OAuthCredential} */
@@ -36,13 +37,13 @@ export function googleSignInPopup(provider) {
       // var token = credential.accessToken;
       // The signed-in user info.
       var user = result.user;
-      const dispatch = useDispatch()
-      dispatch(setUserData(user))
-
-    }).catch((error) => {
+      const dispatch = useDispatch();
+      dispatch(setUserData(user));
+    })
+    .catch((error) => {
       // Handle Errors here.
       var errorMessage = error.message;
-      console.log(errorMessage)
+      console.error(errorMessage);
     });
   // [END auth_google_signin_popup]
 }

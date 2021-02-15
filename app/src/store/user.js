@@ -27,7 +27,6 @@ export const fetchUserData = (id) => {
   return async (dispatch) => {
     try {
       // `https://producdev-1277b-default-rtdb.firebaseio.com/users/${id}.json`
-      console.log("Fetching Data")
       const { data } = await axios.get(
         `https://producdev-1277b-default-rtdb.firebaseio.com/users/${id}.json`
       );
@@ -45,7 +44,7 @@ export const setUserData = (user) => {
       const { displayName, email, photoURL } = user;
       dispatch(setUser({ displayName, email, photoURL, id }));
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 };

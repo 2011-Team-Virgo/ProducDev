@@ -54,7 +54,7 @@ export const firebaseUpload = async (obj) => {
       data
     );
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
