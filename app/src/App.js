@@ -8,7 +8,6 @@ import Signin from "./components/Signin";
 import { Route, Switch } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 
-
 const useStyles = makeStyles({});
 
 function App() {
@@ -22,7 +21,6 @@ function App() {
           exact
           path="/analytics"
           render={(props) => <Analytics {...props} />}
-          
         />
         <Route
           exact

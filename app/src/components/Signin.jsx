@@ -25,6 +25,8 @@ import colors from "../colors";
 
 const { red, lightBlue, darkBlue } = colors;
 
+console.log("kdflkfjsldkfj");
+
 function handleGitHub(dispatch) {
   const provider = new firebase.auth.GithubAuthProvider();
   firebase
