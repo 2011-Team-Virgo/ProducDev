@@ -21,6 +21,8 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import { useMediaQuery } from "@material-ui/core";
+import { AutorenewTwoTone } from "@material-ui/icons";
 
 const { red, darkBlue, lightBlue } = colors;
 
