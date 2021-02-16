@@ -10,9 +10,8 @@ import {
 } from "@material-ui/core";
 import { withRouter, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import colors from "../colors";
 
-const { red, darkBlue, lightBlue } = colors;
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,11 +25,11 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold"
   },
   navbar: {
-    color: red,
-    backgroundColor: darkBlue
+    color: "#05386B",
+    backgroundColor:"transparent"
   },
   link: {
-    color: red,
+    color: "#05386B",
     textDecoration: "none"
   },
   linkRoutes: {
@@ -43,7 +42,6 @@ const NavBar = (props) => {
   const { history } = props;
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
   const user = useSelector((state) => state.userState.user) || {};
 
   const handleMenu = (event) => {
@@ -52,12 +50,11 @@ const NavBar = (props) => {
 
   const handleMenuClick = (pageURL) => {
     history.push(pageURL);
-    setAnchorEl(null);
   };
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" className={classes.navbar}>
+      <AppBar elevation={0} position="static" className={classes.navbar}>
         <Toolbar className={classes.navbar}>
           <Typography variant="h6" className={classes.title}>
             <Link to="/" className={classes.link}>

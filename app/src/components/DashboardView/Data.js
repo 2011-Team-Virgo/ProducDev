@@ -28,23 +28,42 @@ import {
 const useStyles = makeStyles(() => ({
   root: {},
   formControl: {
-    backgroundColor: "#FFFFFF",
     margin: "1%",
     minWidth: 120,
   },
   lineChart: {
     display: "flex",
     justifyContent: "center",
-    margin: "5%",
+    margin: "10%",
   },
   paper: {
-    backgroundColor: "transparent",
-    color: "#FEFFFF",
+    backgroundColor: "#77A6F7",
+    color: "#FFFFFF",
+    fontSize:"125%",
+    padding: "5%",
     "&:hover": {
-      opacity: "0.6",
+      border: "3px dotted #ff7a59",
+      color: "#ff7a59",
+      background: "#fff",
     },
-    border: [[1, "solid", "#2ec4b6"]],
   },
+  grid:{
+    marginTop:"5%",
+    display:"flex",
+    justifyContent:"center"
+  },
+  gridItem:{
+    backgroundColor: "#77A6F7",
+    
+    borderRadius:"3%",
+    "&:hover": {
+      border: "3px dotted #ff7a59",
+      color: "#ff7a59",
+      background: "#fff",
+    },
+  },
+  LineCont:{
+  }
 }));
 
 const Data = (props) => {
@@ -88,7 +107,6 @@ const Data = (props) => {
     return result;
   };
   const projectData = projects && cleanData(projects);
-  console.log(projectData);
 
   //State
   const [state, setState] = React.useState({
@@ -343,10 +361,11 @@ const Data = (props) => {
         </FormControl>
       ) : null}
 
-      <Grid container spacing={1}>
-        <Grid item xs={12} sm={6}>
+      <Grid className={classes.grid} container spacing={1}>
+        
           {state.data.length !== 0 ? (
-            <ResponsiveContainer height={300}>
+            <Grid item className={classes.gridItem}xs={12} sm={6}>
+            <ResponsiveContainer className={classes.LineCont}height={300}>
               <LineChart
                 data={
                   state.selectedProject !== "" && state.selectedFile !== ""
@@ -354,28 +373,29 @@ const Data = (props) => {
                     : []
                 }
                 margin={{
-                  top: 5,
-                  right: 30,
-                  left: 20,
+                  top: 40,
+                  right: 40,
+                  left: 5,
                   bottom: 5,
                 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="date" />
-                <YAxis />
+                <YAxis domain={[100, 1000]}/>
                 <Tooltip />
                 <Legend />
                 <Line
                   type="monotone"
                   dataKey="keyStrokes"
-                  stroke="#8884d8"
+                  stroke="#FFCCBC"
                   activeDot={{ r: 8 }}
                 />
-                <Line type="monotone" dataKey="minutes" stroke="#82ca9d" />
+                <Line type="monotone" dataKey="minutes" stroke="#00887A" />
               </LineChart>
             </ResponsiveContainer>
+            </Grid>
           ) : null}
-        </Grid>
+        
         <Grid item xs={12} sm={6}>
           <Paper className={classes.paper}>
             <ul>

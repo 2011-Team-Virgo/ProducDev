@@ -12,6 +12,9 @@ const useStyles = makeStyles((theme) => ({
     minHeight: "100%",
     paddingBottom: theme.spacing(3),
   },
+  title:{
+    color:"#ff7a59",
+  }
 }));
 
 const Dashboard = () => {
@@ -30,15 +33,10 @@ const Dashboard = () => {
   return (
     <Page className={classes.root} title="Dashboard">
       <Container maxWidth={false}>
-        <h1>Select your project and file.</h1>
-        <Grid container spacing={3}>
-          <Grid item>
-            <Data projects={projects} />
-          </Grid>
-          {/* <Grid item lg={4} md={6} xl={3} xs={12}>
-            <ActivityByProject projects={projects} />
-          </Grid> */}
-        </Grid>
+        <h1 className={classes.title}>Select your project and file.</h1>
+        
+          <Data projects={projects} />
+          
       </Container>
     </Page>
   );
