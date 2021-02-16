@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 const Dashboard = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const state = useSelector((state)=>state);
+  const state = useSelector((state) => state);
   const { user, userData } = useSelector((state) => state.userState);
 
   //user and userData
@@ -32,7 +32,7 @@ const Dashboard = () => {
       <Container maxWidth={false}>
         <h1>Select your project and file.</h1>
         <Grid container spacing={3}>
-          <Grid item lg={8} md={12} xl={9} xs={12}>
+          <Grid item>
             <Data projects={projects} />
           </Grid>
           {/* <Grid item lg={4} md={6} xl={3} xs={12}>
