@@ -23,9 +23,9 @@ import "firebase/auth";
 import "firebase/database";
 import colors from "../colors";
 
-const { red, lightBlue, darkBlue } = colors;
+const { red } = colors;
 
-function handleGitHub(dispatch) {
+function handleGitHub(dispatch,history) {
   const provider = new firebase.auth.GithubAuthProvider();
   firebase
     .auth()
@@ -40,6 +40,7 @@ function handleGitHub(dispatch) {
       // ...
       firebaseUpload(upload);
       dispatch(setUserData(user));
+      history.push("/analytics")
     })
     .catch((error) => {
       console.error(error.message);
@@ -111,9 +112,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Signin() {
+export default function Signin(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
+  
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -129,7 +131,7 @@ export default function Signin() {
             className={classes.github}
             variant="contained"
             onClick={() => {
-              handleGitHub(dispatch);
+              handleGitHub(dispatch,props.history);
             }}>
             <GitHubIcon className={classes.ghicon} />
             Continue with Github

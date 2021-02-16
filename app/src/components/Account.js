@@ -20,9 +20,15 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     paddingTop: "5%",
-    borderRadius: "30%",
     margin: "5%",
-    padding: "5%"
+    padding: "5%",
+    backgroundColor: "#77A6F7",
+    "&:hover": {
+      border: "3px dotted #ff7a59",
+      color: "#ff7a59",
+      background: "#fff",
+    },
+
   },
   profileImg: {
     height: "30vh",
@@ -30,10 +36,24 @@ const useStyles = makeStyles((theme) => ({
   },
   profInfo: {
     margin: "5%",
-    padding: "5%"
+    padding: "5%",
+    backgroundColor: "#77A6F7",
+    "&:hover": {
+      border: "3px dotted #ff7a59",
+      color: "#ff7a59",
+      background: "#fff",
+    },
+
   },
   profBtn: {
-    paddingTop: "5%"
+    backgroundColor: "#00887A",
+    color: "#F7EBE8",
+    borderRadius: "20px",
+    padding:"3%",
+    "&:hover": {
+      background: "#00887A",
+    }
+
   },
   infoGrid: {
     order: 2,
@@ -83,8 +103,7 @@ export default function Account(props) {
             </CardContent>
             <CardActions>
               <Button
-                variant="contained"
-                color="primary"
+                className={classes.profBtn}
                 onClick={() => signOut()}>
                 Logout
               </Button>
